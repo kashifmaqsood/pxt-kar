@@ -54,22 +54,14 @@ namespace KAR {
     }
     
    //% block="led $choice R $r G $g B $b" color="#339933"
+   //% r.min=0 r.max=255 r.defl=100
+   //% g.min=0 g.max=255 g.defl=100
+   //% b.min=0 b.max=255 b.defl=100
     export function led(choice: LightOptions, r: number, g: number, b: number) {
         if (choice == 0)
             serial.writeLine("l:0:x:" + r + ":" + g + ":" + b)
         else if (choice == 1)
             serial.writeLine("l:1:x:" + r + ":" + g + ":" + b)
-    }
-    
-    //% block="Get Distance" color="#9842f4"    
-    export function ReadDistance(): number {
-        serial.writeLine("t:a:x:x:x:x")
-		//control.waitMicros(100);
-		distance = serial.readLine()
-		//return distance
-		return 50
-
-		// tuned for microbit to get the right value in cm        
-		// return Math.idiv(d, 38)
-    }
+    }    
+   
 }
