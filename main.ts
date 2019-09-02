@@ -52,8 +52,8 @@ namespace KAR {
 		else if (choice == 2)
             serial.writeLine("s:0:x:1:0:0")
     }
-
-    //% block color="#339933"
+    
+   //% block="led $choice R $r G $g B $b" color="#339933"
     export function led(choice: LightOptions, r: number, g: number, b: number) {
         if (choice == 0)
             serial.writeLine("l:0:x:" + r + ":" + g + ":" + b)
