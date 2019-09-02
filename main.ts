@@ -63,4 +63,21 @@ namespace KAR {
         else if (choice == 1)
             serial.writeLine("l:1:x:" + r + ":" + g + ":" + b)
     }
+
+    //% block color="#00FF00"
+    export function ReadDistance(): number {
+
+        serial.writeLine("t:p:x:x:x:x")
+        //let d = ""
+        //serial.onDataReceived("", function () {
+        //    d = serial.readLine()
+        //   basic.showString(d)
+        //})
+        //return parseInt(d)
+        //while (d == "");
+        return 0
+
+        // tuned for microbit to get the right value in cm        
+        // return Math.idiv(d, 38)
+    }
 }
