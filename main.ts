@@ -38,6 +38,7 @@ namespace KAR {
     }
 
     //% block color="#FF0000"
+    //% x.min=0 x.max=180 x.defl=90
     export function lookat(x: number) {
         serial.writeLine("s:0:x:1:" + x + ":0")
     }
@@ -60,8 +61,7 @@ namespace KAR {
             serial.writeLine("l:1:x:" + r + ":" + g + ":" + b)
     }
     
-    //% block="headlights mode = $choice brightness = $x" color="#9842f4"
-    //% x.min=0 x.max=100 x.defl=50
+    //% block="Get Distance" color="#9842f4"    
     export function ReadDistance(): number {
         serial.writeLine("t:a:x:x:x:x")
 		//control.waitMicros(100);
