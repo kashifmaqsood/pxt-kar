@@ -1,13 +1,13 @@
 enum LookOptions {    
     Ahead,
     Right,
-	Left    
+    Left    
 }
 
 enum DriveOptions {    
     Forward,
     Backward,
-	Left,
+    Left,
     Right,
 }
 
@@ -53,7 +53,7 @@ namespace KAR {
             serial.writeLine("s:0:x:1:0:0")
     }
 
-    //% block="led $choice" color="#339933"
+    //% block color="#339933"
     export function led(choice: LightOptions, r: number, g: number, b: number) {
         if (choice == 0)
             serial.writeLine("l:0:x:" + r + ":" + g + ":" + b)
