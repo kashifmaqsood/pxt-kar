@@ -64,20 +64,22 @@ namespace KAR {
             serial.writeLine("l:1:x:" + r + ":" + g + ":" + b)
     }
 
-    //% block color="#00FF00"
+    //% block color="#FF0000"
     export function ReadDistance(): number {
-
         serial.writeLine("t:p:x:x:x:x")
-        //let d = ""
-        //serial.onDataReceived("", function () {
-        //    d = serial.readLine()
-        //   basic.showString(d)
-        //})
-        //return parseInt(d)
-        //while (d == "");
-        return 0
 
-        // tuned for microbit to get the right value in cm        
-        // return Math.idiv(d, 38)
+        let d = ""
+
+        for (let i = 1; i < 200; i++) {
+            d = serial.readLine()
+            if (d == "") {
+                control.waitMicros(50)
+            } else {
+                return parseInt(d)
+                //return Math.idiv(parseInt(d), 38)
+            }
+        }
+        
+        return parseInt(d)
     }
 }
