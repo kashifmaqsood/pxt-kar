@@ -78,7 +78,7 @@ namespace KAR {
         serial.writeLine("s:0:x:1:" + x + ":0")
     }
 
-    //% block="Look $choice" color="#2ECC71"
+    //% block="Look $choice" color="#186A3B"
     export function look(choice: LookOptions) {
         if (choice == 0)
             serial.writeLine("s:0:x:1:90:0")
@@ -128,7 +128,7 @@ namespace KAR {
         return parseInt(d)
     }
 
-    //% block="Line detected on $sensor sensor" color="#000000"
+    //% block="Line detected on $sensor sensor" color="#E74C3C"
     //% sensor.defl=1
     export function LineSensor(sensor: LineSensorOptions): boolean {
         if (sensor == 0)
@@ -162,5 +162,11 @@ namespace KAR {
     //% ss.min=1 ss.max=60 ss.defl=5
     export function WaitFor(ss: number) {
         control.waitMicros(ss * 1000000)
+    }
+
+    //% block="Wait for $ms milliseconds" color="#000000"    
+    //% ms.min=1 ms.max=1000 ms.defl=500
+    export function WaitFor2(ms: number) {
+        control.waitMicros(ms * 1000)
     }
 }
