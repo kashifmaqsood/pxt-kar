@@ -1,7 +1,7 @@
 enum LineSensorOptions {
-    Right,
-    Center,
-    Left
+    Left,
+    Middle,
+    Right
 }
 
 enum ColorOptions {
@@ -23,7 +23,7 @@ enum LookOptions {
 
 enum DriveOptions {
     Forward,
-    Backward,
+    Back,
     Left,
     Right,
 }
@@ -36,8 +36,8 @@ enum LightOptions {
 //% color="#000099" weight=10 icon="\uf17b" block="KAR"
 namespace KAR {
 
-    //% block="Drive $choice at speed = $x" color="#000099"
-    //% x.min=0 x.max=100 x.defl=30
+    //% block="Drive $choice at speed $x" color="#000099"
+    //% x.min=0 x.max=100 x.defl=30    
     export function drive(choice: DriveOptions, x: number) {
         if (choice == 0)
             serial.writeLine("d:f:x:" + x + ":0:0")
@@ -48,6 +48,24 @@ namespace KAR {
         else if (choice == 3)
             serial.writeLine("d:r:x:" + x + ":0:0")
     }
+
+    //% block="Drive $choice at speed $x for $n seconds" color="#000099"
+    //% x.min=0 x.max=100 x.defl=30
+    //% n.min=1 n.max=10 n.defl=1
+    export function drive2(choice: DriveOptions, x: number, n: number) {
+        if (choice == 0)
+            serial.writeLine("d:f:x:" + x + ":0:0")
+        else if (choice == 1)
+            serial.writeLine("d:b:x:" + x + ":0:0")
+        else if (choice == 2)
+            serial.writeLine("d:l:x:" + x + ":0:0")
+        else if (choice == 3)
+            serial.writeLine("d:r:x:" + x + ":0:0")
+
+        control.waitMicros(n * 1000000)
+    }
+
+
 
     //% block="Stop" color="#FF0000"
     export function stop() {
@@ -92,7 +110,7 @@ namespace KAR {
             serial.writeLine("l:" + choice + ":x:50:50:0")
     }
 
-    //% block="Distance" color="#A04000"
+    //% block="Object detected at (cm)" color="#A04000"
     export function ReadDistance(): number {
         serial.writeLine("t:p:x:x:x:x")
 
@@ -110,10 +128,15 @@ namespace KAR {
         return parseInt(d)
     }
 
-    //% block="Line Sensor $sensor" color="#000000"
+    //% block="Line detected on $sensor sensor" color="#000000"
     //% sensor.defl=1
-    export function LineSensor(sensor: LineSensorOptions): number {
-        serial.writeLine("t:l:" + sensor + ":x:x:x")
+    export function LineSensor(sensor: LineSensorOptions): boolean {
+        if (sensor == 0)
+            serial.writeLine("t:l:x:x:x:x")
+        if (sensor == 1)
+            serial.writeLine("t:c:x:x:x:x")
+        if (sensor == 2)
+            serial.writeLine("t:r:x:x:x:x")
 
         let d = ""
 
@@ -122,10 +145,22 @@ namespace KAR {
             if (d == "") {
                 control.waitMicros(50)
             } else {
-                return parseInt(d)
+                if (d == "1")
+                    return true
+                else
+                    return false
+                //return parseInt(d)
                 //return Math.idiv(parseInt(d), 38)
             }
         }
-        return parseInt(d)
+
+        //return parseInt(d)
+        return false
+    }
+
+    //% block="Wait for $ss seconds" color="#000000"    
+    //% ss.min=1 ss.max=60 ss.defl=5
+    export function WaitFor(ss: number) {
+        control.waitMicros(ss * 1000000)
     }
 }
